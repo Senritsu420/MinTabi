@@ -2,9 +2,8 @@
 name: Go CI
 
 # トリガーになる Github イベント
-# リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーに設定
+# PR 作成(pull_request)をトリガーに設定
 on:
-  push:
   pull_request:
 
 # デフォルトの作業ディレクトリ変更

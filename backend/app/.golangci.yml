@@ -10,7 +10,6 @@ linters:
     - staticcheck
     - unused
     - gosimple
-    - varcheck
     - misspell
     - lll
     - gofumpt

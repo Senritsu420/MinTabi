@@ -24,9 +24,9 @@ jobs:
       - uses: reviewdog/action-golangci-lint@v2
         with:
           github_token: ${{ secrets.github_token }}
-          go_version: ^1.21
+          go_version: 1.21
           # reviewdog の動作モードの指定
           reporter: github-pr-review
           # Github Status へのレポートレベルの指定
           level: warning
-          golangci_lint_flags: "--config=.golangci.yml"
+          golangci_lint_flags: "--config=.backend/app/golangci.yml"

@@ -29,3 +29,5 @@ jobs:
       # テストの実行
       - name: Run Test
         run: go test -v ./...
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v3

@@ -1,6 +1,8 @@
 name: nextjs_ci
 
+# リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーに設定
 on:
+  push:
   pull_request:
 
 # デフォルトの作業ディレクトリ変更

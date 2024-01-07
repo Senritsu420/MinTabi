@@ -2,7 +2,7 @@
 name: Go CI
 
 # トリガーになる Github イベント
-# 今回は、リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーにします
+# リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーに設定
 on:
   push:
   pull_request:
@@ -23,25 +23,13 @@ jobs:
       # リポジトリからソースコードの取得
       - uses: actions/checkout@v3
       # Go の実行環境 Set up
-      - uses: actions/setup-go@v4
-        with:
-          go-version: ^1.21
+      - name: Set up Go
+          uses: actions/setup-go@v3
+          with:
+            go-version: 1.21
       # テストの実行
-      - name: Run Test
-        run: go test -v ./...
-
-# linter の設定
-linters:
-  # 全ての linter を無効化
-  disable-all: true
-  # 指定した linter のみ有効化
-  enable:
-    - govet
-    - errcheck
-    - staticcheck
-    - unused
-    - gosimple
-    - varcheck
-    - misspell
-    - lll
-    - gofumpt
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          args: ./...

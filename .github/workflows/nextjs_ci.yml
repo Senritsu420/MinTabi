@@ -1,0 +1,41 @@
+name: nextjs_ci
+
+on:
+  pull_request:
+
+# デフォルトの作業ディレクトリ変更
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  nextjs_ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # 使用するNode.jsのバージョンを定義
+        node-version: [20.10.0]
+
+    steps:
+      - name: Checkout Repository
+        # 実行環境にソースコードを取り込む
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          # 利用したいNode.jsバージョンを指定
+          node-version: ${{ matrix.node-version }}
+          # npmのキャッシュを使用する設定
+          cache: "npm"
+
+      # プロジェクトの依存関係をインストール
+      - name: Install Dependencies
+        run: npm install
+      # Prettierでフォーマット
+      - name: Format code
+        run: npm run prettier
+      # ESlintを実行するnpmスクリプト名に合わせて設定
+      - name: Run ESlint
+        run: npm run lint

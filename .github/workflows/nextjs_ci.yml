@@ -6,7 +6,7 @@ on:
 # デフォルトの作業ディレクトリ変更
 defaults:
   run:
-    working-directory: frontend
+    working-directory: ./frontend
 
 jobs:
   nextjs_ci:
@@ -29,6 +29,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # npmのキャッシュを使用する設定
           cache: "npm"
+          cache-dependency-path: ./frontend/package-lock.json
 
       # プロジェクトの依存関係をインストール
       - name: Install Dependencies

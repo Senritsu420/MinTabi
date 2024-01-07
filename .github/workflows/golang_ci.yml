@@ -10,7 +10,7 @@ on:
 # デフォルトの作業ディレクトリ変更
 defaults:
   run:
-    working-directory: ./backend/app
+    working-directory: ./backend
 
 # ジョブ定義
 jobs:
@@ -28,6 +28,9 @@ jobs:
           go-version: ^1.20
       # テストの実行
       - name: Run Test
-        run: go test -v ./...
+        run: go test -v ./app/...
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: ./app/...

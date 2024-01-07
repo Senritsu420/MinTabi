@@ -1,3 +1,3 @@
-module mintabi
+module app
 
 go 1.21.4

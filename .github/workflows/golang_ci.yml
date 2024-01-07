@@ -2,10 +2,15 @@
 name: Go CI
 
 # トリガーになる Github イベント
-#　今回は、リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーにします
+# 今回は、リポジトリへのコミット（push）と PR 作成(pull_request)をトリガーにします
 on:
   push:
   pull_request:
+
+# デフォルトの作業ディレクトリ変更
+defaults:
+  run:
+    working-directory: backend/app
 
 # ジョブ定義
 jobs:
@@ -23,7 +28,7 @@ jobs:
           go-version: ^1.21
       # テストの実行
       - name: Run Test
-        run: go test -v ./backend/app/...
+        run: go test -v ./...
 
 # linter の設定
 linters:

@@ -4,6 +4,11 @@ name: Golangci-lint ReviewDog
 on:
   pull_request:
 
+# デフォルトの作業ディレクトリ変更
+defaults:
+  run:
+    working-directory: backend/app
+
 # ジョブ定義
 jobs:
   # lint

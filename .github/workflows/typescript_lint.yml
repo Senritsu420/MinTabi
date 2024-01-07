@@ -3,6 +3,11 @@ name: TypeScript Lint
 on:
   pull_request:
 
+# デフォルトの作業ディレクトリ変更
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -14,10 +19,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16.17.1 # 利用したいNode.jsバージョンを指定
+          # 利用したいNode.jsバージョンを指定
+          node-version: 20.10.0
 
       - name: Install Dependencies
         run: npm install
-
+      # ESlintを実行するnpmスクリプト名に合わせて設定
       - name: Run ESlint
-        run: npm run lint # ESlintを実行するnpmスクリプト名に合わせて設定
+        run: npm run lint

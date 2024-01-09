@@ -24,7 +24,7 @@ jobs:
     # ジョブ内で実行する step を定義
     steps:
       # リポジトリからソースコードの取得
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
       # Go の実行環境 Setup
       - name: Go Setup
@@ -40,7 +40,7 @@ jobs:
   go_lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Go Setup
         uses: actions/setup-go@v4

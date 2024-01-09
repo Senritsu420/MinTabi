@@ -40,7 +40,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       # Prettierでフォーマット
-      - name: Format code
+      - name: Format Code
         run: npm run prettier
       # ESlintを実行するnpmスクリプト名に合わせて設定
       - name: Run ESlint

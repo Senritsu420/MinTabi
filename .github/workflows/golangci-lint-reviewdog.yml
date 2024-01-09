@@ -24,8 +24,10 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: reviewdog/action-golangci-lint@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Reviewdog
+        uses: reviewdog/action-golangci-lint@v2
         with:
           github_token: ${{ secrets.github_token }}
           go_version: 1.21
@@ -34,3 +36,4 @@ jobs:
           # Github Status へのレポートレベルの指定
           level: warning
           golangci_lint_flags: "--config=backend/app/.golangci.yml"
+          working-directory: backend

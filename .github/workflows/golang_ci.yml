@@ -39,9 +39,7 @@ jobs:
     steps:
       # テストの実行
       - name: Run Test
-        run: go test -v ./... -coverprofile=coverage.out
-      - name: Run Octocov
-        uses: k1LoW/octocov-action@v0
+        run: go test -v ./...
 
   go_lint:
     runs-on: ubuntu-latest

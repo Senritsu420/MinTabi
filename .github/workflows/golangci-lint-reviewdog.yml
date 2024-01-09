@@ -3,6 +3,10 @@ name: Golangci-lint ReviewDog
 
 on:
   pull_request:
+    branches:
+      - develop
+    paths:
+      - "backend/app/**"
 
 # デフォルトの作業ディレクトリ変更
 defaults:

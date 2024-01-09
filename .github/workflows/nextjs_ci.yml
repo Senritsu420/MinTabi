@@ -3,6 +3,10 @@ name: nextjs_ci
 # PR 作成(pull_request)をトリガーに設定
 on:
   pull_request:
+    branches:
+      - develop
+    paths:
+      - "frontend/**"
 
 # デフォルトの作業ディレクトリ変更
 defaults:

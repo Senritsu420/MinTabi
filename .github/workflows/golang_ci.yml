@@ -39,7 +39,9 @@ jobs:
     steps:
       # テストの実行
       - name: Run Test
-        run: go test -v ./...
+        run: go test -v github.com/Senritsu420/MinTabi/backend/app/... -coverprofile=coverage.out
+      - name: Run Octocov
+        uses: k1LoW/octocov-action@v0
 
   go_lint:
     runs-on: ubuntu-latest
@@ -55,4 +57,4 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.42.1
-          args: --timeout 10m ./backend/...
+          args: --timeout 10m github.com/Senritsu420/MinTabi/backend/app/...

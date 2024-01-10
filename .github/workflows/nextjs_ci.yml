@@ -9,6 +9,9 @@ on:
       - "frontend/**"
   workflow_dispatch:
 
+env:
+  DOCKER_IMAGE_TAG: "frontend"
+
 # デフォルトの作業ディレクトリ変更
 defaults:
   run:
@@ -40,9 +43,23 @@ jobs:
       # プロジェクトの依存関係をインストール
       - name: Install Dependencies
         run: npm install
+
       # Prettierでフォーマット
       - name: Format Code
         run: npm run prettier
+
       # ESlintを実行するnpmスクリプト名に合わせて設定
       - name: Run ESlint
         run: npm run lint
+
+      # Dockerのコンテナイメージをビルド
+      - name: Docker Image Build
+        run: |
+          docker build -f Dockerfile -t ${{ env.DOCKER_IMAGE_TAG }} ./frontend
+
+      - name: Run Dockle
+        uses: erzz/dockle-action@v1
+        with:
+          image: ${{ env.DOCKER_IMAGE_TAG }}
+          exit-code: 1
+          failure-threshold: fatal

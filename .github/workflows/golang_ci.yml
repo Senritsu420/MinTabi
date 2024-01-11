@@ -43,24 +43,28 @@ jobs:
 
   go_lint:
     runs-on: ubuntu-latest
+    # GITHUB_TOKEN への権限設定
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
     steps:
       # リポジトリからソースコードの取得
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-        # Go の実行環境 Setup
-      - name: Go Setup
-        uses: actions/setup-go@v4
+      # Reveiwdogでgolangci-lintを実行
+      - name: Run golangci-lint with Reviewdog
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          go-version: 1.21
-
-      # golangci-lintを実行
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: latest
-          working-directory: backend
-          args: --disable-all --enable=govet,errcheck,staticcheck,unused,gosimple,misspell,lll,gofumpt
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          go_version: 1.21
+          # reviewdog の動作モードの指定
+          reporter: github-pr-review
+          # Github Status へのレポートレベルの指定
+          level: warning
+          workdir: backend/
+          golangci_lint_flags: "--config=.golangci.yml"
 
   go_build_check:
     runs-on: ubuntu-latest

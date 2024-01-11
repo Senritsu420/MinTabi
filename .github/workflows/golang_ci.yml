@@ -2,7 +2,6 @@
 name: golang_ci
 
 # トリガーになる Github イベント
-# PR 作成(pull_request)をトリガーに設定
 on:
   pull_request:
     branches:
@@ -11,27 +10,14 @@ on:
       - "backend/**"
   workflow_dispatch:
 
+env:
+  DOCKER_IMAGE_TAG: "backend"
+
 # ジョブ定義
 jobs:
   # ジョブ名
-  # shared_steps:
-  #   # ジョブ実行環境の指定
-  #   runs-on: ubuntu-latest
-  #   # ジョブ内で実行する step を定義
-  #   steps:
-  #     # リポジトリからソースコードの取得
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v3
-
-  #       # Go の実行環境 Setup
-  #     - name: Go Setup
-  #       uses: actions/setup-go@v4
-  #       with:
-  #         go-version: ^1.20
-
   go_test:
     runs-on: ubuntu-latest
-    # needs: shared_steps
     steps:
       # リポジトリからソースコードの取得
       - name: Checkout Repository
@@ -51,9 +37,21 @@ jobs:
       - name: Run Octocov
         uses: k1LoW/octocov-action@v0
 
+      # Dockerのコンテナイメージをビルド
+      - name: Docker Image Build
+        run: |
+          docker build -f Dockerfile -t ${{ env.DOCKER_IMAGE_TAG }} .
+
+      # Dockleで脆弱性検査を行う
+      - name: Run Dockle
+        uses: erzz/dockle-action@v1
+        with:
+          image: ${{ env.DOCKER_IMAGE_TAG }}
+          exit-code: 1
+          failure-threshold: fatal
+
   go_lint:
     runs-on: ubuntu-latest
-    # needs: shared_steps
     steps:
       # リポジトリからソースコードの取得
       - name: Checkout Repository
@@ -65,6 +63,7 @@ jobs:
         with:
           go-version: 1.21
 
+      # golangci-lintを実行
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:

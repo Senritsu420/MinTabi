@@ -1,6 +1,7 @@
+# ワークフローの名前
 name: nextjs_ci
 
-# PR 作成(pull_request)をトリガーに設定
+# トリガーになる Github イベント
 on:
   pull_request:
     branches:
@@ -17,7 +18,9 @@ defaults:
   run:
     working-directory: ./frontend
 
+# ジョブ定義
 jobs:
+  # ジョブ名
   nextjs_ci:
     runs-on: ubuntu-latest
 
@@ -27,10 +30,11 @@ jobs:
         node-version: [20.10.0]
 
     steps:
+      # リポジトリからソースコードの取得
       - name: Checkout Repository
-        # 実行環境にソースコードを取り込む
         uses: actions/checkout@v3
 
+      # Node.jsのセットアップ
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:

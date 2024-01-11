@@ -31,4 +31,3 @@ jobs:
           # Github Status へのレポートレベルの指定
           level: warning
           golangci_lint_flags: "--config=backend/.golangci.yml"
-          working-directory: backend

@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # 使用するNode.jsのバージョンを定義
-        node-version: [18]
+        node-version: [18.13]
     permissions:
       contents: read
       pull-requests: write

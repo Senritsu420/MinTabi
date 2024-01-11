@@ -69,4 +69,4 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.42.1
-          args: --timeout 10m backend/...
+          args: --timeout 10m home/runner/work/Senritsu420/Mintabi/backend

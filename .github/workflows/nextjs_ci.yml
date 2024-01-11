@@ -21,7 +21,7 @@ defaults:
 # ジョブ定義
 jobs:
   # ジョブ名
-  nextjs_build_check:
+  nextjs_lint:
     runs-on: ubuntu-latest
 
     strategy:
@@ -53,8 +53,19 @@ jobs:
         run: npm run prettier
 
       # ESlintを実行するnpmスクリプト名に合わせて設定
-      - name: Run ESlint
-        run: npm run lint
+      - name: Run ESlint Reviewdog
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          eslint_flags: "src/**/*.{ts,tsx}"
+
+  nextjs_build_check:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリからソースコードの取得
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       # Dockerのコンテナイメージをビルド
       - name: Docker Image Build

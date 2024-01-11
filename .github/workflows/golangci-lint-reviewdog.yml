@@ -6,12 +6,7 @@ on:
     branches:
       - develop
     paths:
-      - "backend/app/**"
-
-# デフォルトの作業ディレクトリ変更
-defaults:
-  run:
-    working-directory: backend/app
+      - "backend/**"
 
 # ジョブ定義
 jobs:
@@ -35,5 +30,5 @@ jobs:
           reporter: github-pr-review
           # Github Status へのレポートレベルの指定
           level: warning
-          golangci_lint_flags: "--config=backend/app/.golangci.yml"
+          golangci_lint_flags: "--config=backend/.golangci.yml"
           working-directory: backend

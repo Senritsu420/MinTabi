@@ -59,6 +59,7 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: latest
+          working-directory: backend
           args: --disable-all --enable=govet,errcheck,staticcheck,unused,gosimple,misspell,lll,gofumpt
 
   go_build_check:

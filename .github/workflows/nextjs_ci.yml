@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # 使用するNode.jsのバージョンを定義
-        node-version: [18.13]
+        node-version: [20.10.0]
     permissions:
       contents: read
       pull-requests: write
@@ -54,10 +54,6 @@ jobs:
       - name: Format Code
         run: npm run prettier
 
-      # ESLintをインストール
-      - name: Install ESLint
-        run: npm install eslint
-
       # ReviewdogをESLintで実行
       - name: Run ESLint Reviewdog
         uses: reviewdog/action-eslint@v1
@@ -65,6 +61,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           eslint_flags: "src/**/*.{ts,tsx}"
+          working-directory: frontend
 
   nextjs_build_check:
     runs-on: ubuntu-latest

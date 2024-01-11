@@ -13,6 +13,11 @@ on:
 env:
   DOCKER_IMAGE_TAG: "backend"
 
+# デフォルトの作業ディレクトリ変更
+defaults:
+  run:
+    working-directory: ./backend
+
 # ジョブ定義
 jobs:
   # ジョブ名
@@ -32,23 +37,9 @@ jobs:
       # テストの実行
       - name: Run Test
         run: go test -v ./... -coverprofile=coverage.out
-        working-directory: backend
 
       - name: Run Octocov
         uses: k1LoW/octocov-action@v0
-
-      # Dockerのコンテナイメージをビルド
-      - name: Docker Image Build
-        run: |
-          docker build -f Dockerfile -t ${{ env.DOCKER_IMAGE_TAG }} .
-
-      # Dockleで脆弱性検査を行う
-      - name: Run Dockle
-        uses: erzz/dockle-action@v1
-        with:
-          image: ${{ env.DOCKER_IMAGE_TAG }}
-          exit-code: 1
-          failure-threshold: fatal
 
   go_lint:
     runs-on: ubuntu-latest
@@ -68,5 +59,24 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: latest
-          working-directory: backend
           args: --disable-all --enable=govet,errcheck,staticcheck,unused,gosimple,misspell,lll,gofumpt
+
+  go_build_check:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリからソースコードの取得
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Dockerのコンテナイメージをビルド
+      - name: Docker Build
+        run: |
+          docker build -f Dockerfile -t ${{ env.DOCKER_IMAGE_TAG }} .
+
+      # Dockleで脆弱性検査を行う
+      - name: Run Dockle
+        uses: erzz/dockle-action@v1
+        with:
+          image: ${{ env.DOCKER_IMAGE_TAG }}
+          exit-code: 1
+          failure-threshold: fatal

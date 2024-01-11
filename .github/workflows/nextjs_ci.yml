@@ -21,7 +21,7 @@ defaults:
 # ジョブ定義
 jobs:
   # ジョブ名
-  nextjs_ci:
+  nextjs_build_check:
     runs-on: ubuntu-latest
 
     strategy:

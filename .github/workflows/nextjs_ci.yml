@@ -42,7 +42,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # npmのキャッシュを使用する設定
           cache: "npm"
-          cache-dependency-path: ./package-lock.json
+          cache-dependency-path: ./frontend/package-lock.json
 
       # プロジェクトの依存関係をインストール
       - name: Install Dependencies

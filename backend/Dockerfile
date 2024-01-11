@@ -5,7 +5,7 @@ ENV GO111MODULE on
 # 必要なものをインストール
 RUN apk update && \
   apk --no-cache add git && \
-  apk add bash
+  apk --no-cache add bash
 # 作業ディレクトリ変更
 WORKDIR /go/src/app
 # go.mod作成

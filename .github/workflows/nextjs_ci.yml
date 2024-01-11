@@ -50,10 +50,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Prettierでフォーマット
-      - name: Format Code
-        run: npm run prettier
-
       # ReviewdogをESLintで実行
       - name: Run ESLint Reviewdog
         uses: reviewdog/action-eslint@v1
@@ -61,7 +57,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           eslint_flags: "src/**/*.{ts,tsx}"
-          working-directory: frontend
 
   nextjs_build_check:
     runs-on: ubuntu-latest

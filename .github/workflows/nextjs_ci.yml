@@ -42,7 +42,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # npmのキャッシュを使用する設定
           cache: "npm"
-          cache-dependency-path: ./frontend/package-lock.json
+          cache-dependency-path: ./package-lock.json
 
       # プロジェクトの依存関係をインストール
       - name: Install Dependencies
@@ -54,11 +54,7 @@ jobs:
 
       # ESlintを実行するnpmスクリプト名に合わせて設定
       - name: Run ESlint Reviewdog
-        uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          eslint_flags: "src/**/*.{ts,tsx}"
+        run: REVIEWDOG_GITHUB_API_TOKEN=$GITHUB_TOKEN npx eslint --format=unix . | npx reviewdog -f=eslint -name="eslint" -reporter=github-pr-check
 
   nextjs_build_check:
     runs-on: ubuntu-latest

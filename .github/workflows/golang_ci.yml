@@ -68,5 +68,6 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.42.1
-          args: --timeout 10m home/runner/work/Senritsu420/Mintabi/backend
+          version: latest
+          working-directory: backend
+          args: --disable-all --enable=govet,errcheck,staticcheck,unused,gosimple,misspell,lll,gofumpt

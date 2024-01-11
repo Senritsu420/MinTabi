@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # 使用するNode.jsのバージョンを定義
-        node-version: [20.10.0]
+        node-version: [18]
     permissions:
       contents: read
       pull-requests: write
@@ -60,7 +60,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          working-directory: frontend
           eslint_flags: "src/**/*.{ts,tsx}"
 
   nextjs_build_check:

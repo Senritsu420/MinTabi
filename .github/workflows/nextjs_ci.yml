@@ -10,13 +10,14 @@ on:
       - "frontend/**"
   workflow_dispatch:
 
+# 環境変数を設定
 env:
   DOCKER_IMAGE_TAG: "frontend"
 
 # デフォルトの作業ディレクトリ変更
 defaults:
   run:
-    working-directory: ./frontend
+    working-directory: frontend
 
 # ジョブ定義
 jobs:

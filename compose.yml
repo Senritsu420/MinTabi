@@ -30,7 +30,7 @@ services:
             - db
         volumes:
             - type: bind
-              source: ./backend/app
+              source: ./backend
               target: /go/src/app
         env_file:
             - .env

@@ -31,7 +31,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-
     steps:
       # リポジトリからソースコードの取得
       - name: Checkout Repository

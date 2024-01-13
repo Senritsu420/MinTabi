@@ -1,5 +1,5 @@
 # ワークフローの名前
-name: nextjs_ci
+name: typescript_ci
 
 # トリガーになる Github イベント
 on:
@@ -22,7 +22,7 @@ defaults:
 # ジョブ定義
 jobs:
   # ジョブ名
-  nextjs_lint:
+  typescript_lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -59,7 +59,7 @@ jobs:
           eslint_flags: "src/**/*.{ts,tsx}"
           workdir: frontend/
 
-  nextjs_build_check:
+  typescript_build_check:
     runs-on: ubuntu-latest
     steps:
       # リポジトリからソースコードの取得

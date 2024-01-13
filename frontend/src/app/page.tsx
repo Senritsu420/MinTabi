@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 
-console.log('foo')
 export default function Home() {
   var test
+  alert('yeah!')
+  console.log('test')
   return (
     <main className={styles.main}>
       <div className={styles.description}>

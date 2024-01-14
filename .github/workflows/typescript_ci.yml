@@ -48,7 +48,7 @@ jobs:
 
       # プロジェクトの依存関係をインストール
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       # ReviewdogをESLintで実行
       - name: Run ESLint Reviewdog
